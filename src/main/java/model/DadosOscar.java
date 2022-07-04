@@ -1,6 +1,8 @@
 package model;
 
 public class DadosOscar {
+
+    private static Long classIndex = 1l;
     private Long index;
     private Integer year;
     private Integer age;
@@ -8,7 +10,7 @@ public class DadosOscar {
     private String movie;
     private String sex;
 
-    public DadosOscar(long index, int year, int age, String name, String movie) {
+    public DadosOscar(Long index, int year, int age, String name, String movie) {
         this.index = index;
         this.year = year;
         this.age = age;
