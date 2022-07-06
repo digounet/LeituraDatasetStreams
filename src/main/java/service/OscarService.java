@@ -22,7 +22,7 @@ public class OscarService {
         var youngestActor = dadosOscar.stream()
                 .min(Comparator.comparing(DadosOscar::getAge));
         System.out.println("Ator/atriz mais jovem a ser premiado:");
-        youngestActor.ifPresent(actor -> System.out.println(actor));
+        youngestActor.ifPresent(actor -> System.out.printf("Nome: %s, Idade: %d %n", actor.getName(), actor.getAge()));
         System.out.println();
     }
 
@@ -32,8 +32,26 @@ public class OscarService {
         dadosOscar.stream()
                 .collect(Collectors.groupingBy(DadosOscar::getName, Collectors.counting()))
                 .entrySet().stream()
-                .max(Map.Entry.comparingByValue())
-                .ifPresent(e -> System.out.printf("%s com %d oscars.", e.getKey(), e.getValue()));
+                .collect(Collectors.groupingBy(Map.Entry::getValue))
+                .entrySet().stream()
+                .max(Map.Entry.comparingByKey())
+                .get()
+                .getValue()
+                .forEach(a -> System.out.printf("Nome: %-18s Qtd de prêmios: %d%n", a.getKey(), a.getValue()));
+        System.out.println();
+    }
+    public void printMostAwardedYoungActor() {
+        System.out.println("Ator/atriz jovem mais premiado (entre 18 e 24 anos)");
+        dadosOscar.stream()
+                .filter(a -> a.getAge() >= 18 && a.getAge() <= 24)
+                .collect(Collectors.groupingBy(DadosOscar::getName, Collectors.counting()))
+                .entrySet().stream()
+                .collect(Collectors.groupingBy(Map.Entry::getValue))
+                .entrySet().stream()
+                .max(Map.Entry.comparingByKey())
+                .get()
+                .getValue()
+                .forEach(a -> System.out.printf("Nome: %-18s Qtd de prêmios: %d%n", a.getKey(), a.getValue()));
         System.out.println();
     }
 }

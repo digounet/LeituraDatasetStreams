@@ -41,5 +41,8 @@ public class Application {
 
         // 5 - Ator com maior qtd de prêmios
         oscarService.printMostAwardedActor();
+
+        // 6 - Quem foi o jovem mais premiado (entre 18 e 24 anos)?
+        oscarService.printMostAwardedYoungActor();
     }
 }
